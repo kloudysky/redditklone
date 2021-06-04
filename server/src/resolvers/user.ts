@@ -10,7 +10,6 @@ import {
   Resolver,
 } from "type-graphql";
 import argon2 from "argon2";
-import { EntityManager } from "@mikro-orm/postgresql";
 import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
 import { UsernamePasswordInput } from "./UsernamePasswordInput";
 import { validateRegister } from "../utils/validateRegister";
@@ -150,7 +149,7 @@ export class UserResolver {
         })
         .returning("*")
         .execute();
-      user = result.raw;
+      user = result.raw[0];
     } catch (error) {
       //dup username error
       if (error.code === "23505") {
