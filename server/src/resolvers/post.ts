@@ -17,6 +17,7 @@ import {
 import { MyContext } from "src/types";
 import { isAuth } from "../middleware/isAuth";
 import { getConnection } from "typeorm";
+import { Upvote } from "../entities/Upvote";
 
 @InputType()
 class PostInput {
@@ -41,6 +42,38 @@ export class PostResolver {
     return root.text.slice(0, 50);
   }
 
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async vote(
+    @Arg("postId", () => Int) postId: number,
+    @Arg("value", () => Int) value: number,
+    @Ctx() { req }: MyContext
+  ) {
+    const isUpvote = value !== -1;
+    const realValue = isUpvote ? 1 : -1;
+    const { userId } = req.session;
+    // await Upvote.insert({
+    //   userId,
+    //   postId,
+    //   value: realValue,
+    // });
+    await getConnection().query(
+      `
+      START TRANSACTION;
+
+      insert into upvote ("userId", "postId", value)
+      values (${userId},${postId},${realValue});
+
+      update post
+      set points = points + ${realValue}
+      where id = ${postId};
+
+      COMMIT;
+    `
+    );
+    return true;
+  }
+
   @Query(() => PaginatedPosts)
   async posts(
     @Arg("limit", () => Int) limit: number,
@@ -58,7 +91,7 @@ export class PostResolver {
     const posts = await getConnection().query(
       `
     select p.*, 
-    json_build_object('username', u.username) creator
+    json_build_object('id', u.id, 'username', u.username, 'email', u.email) creator
     from post p
     inner join public.user u on u.id = p."creatorId"
     ${cursor ? `where p."createdAt" < $2` : ""}
