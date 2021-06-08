@@ -1730,6 +1730,14 @@
     "@graphql-typed-document-node/core" "^3.1.0"
     wonka "^4.0.14"
 
+"@urql/core@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@urql/core/-/core-2.1.3.tgz#fd8514ce28c1f8cf8e99a03b86a3df217c132290"
+  integrity sha512-CzrTMhO5SG7qdAaS3B5/g1TPH5k7326GHIyta1owT2vzxX9ev8YytxOE5m73EuacxIfF7qVZFhCzY+rubOlI0w==
+  dependencies:
+    "@graphql-typed-document-node/core" "^3.1.0"
+    wonka "^4.0.14"
+
 "@urql/exchange-graphcache@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-4.0.0.tgz#be7dd362b6949dee8f2188139adca692b70a3b05"
@@ -3236,6 +3244,13 @@ graphql-tag@^2.11.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.11.0.tgz#1deb53a01c46a7eb401d6cb59dec86fa1cccbffd"
   integrity sha512-VmsD5pJqWJnQZMUeRwrDhfgoyqcfwEkvtpANqcoUG8/tOLkwNgU9mzub/Mc78OJMhHjx7gfAMTxzdG43VGg3bA==
+
+graphql-tag@^2.12.4:
+  version "2.12.4"
+  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.4.tgz#d34066688a4f09e72d6f4663c74211e9b4b7c4bf"
+  integrity sha512-VV1U4O+9x99EkNpNmCUV5RZwq6MnK4+pGbRYWG+lA/m3uo7TSqJF81OkcOP148gFP6fzdl7JWYBrwWVTS9jXww==
+  dependencies:
+    tslib "^2.1.0"
 
 graphql-upload@^11.0.0:
   version "11.0.0"
