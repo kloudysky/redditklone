@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv-safe/config";
 import { COOKIE_NAME, __prod__ } from "./constants";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
@@ -20,27 +21,24 @@ import { createUpvoteLoader } from "./utils/createUpvoteStatusLoader";
 const main = async () => {
   const conn = await createConnection({
     type: "postgres",
-    database: "redditklone2",
-    username: "postgres",
-    password: "postgres",
+    url: process.env.DATABASE_URL,
     logging: true,
-    synchronize: true,
+    // synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Post, User, Upvote],
   });
 
   await conn.runMigrations();
 
-  // await Post.delete({});
-
   const app = express();
 
   const RedisStore = connectRedis(session);
-  const redis = new Redis();
+  const redis = new Redis(process.env.REDIS_URL);
+  app.set("proxy", 1);
 
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: process.env.CORS_ORIGIN,
       credentials: true,
     })
   );
@@ -57,9 +55,10 @@ const main = async () => {
         httpOnly: true,
         secure: __prod__, //cookie only works in https
         sameSite: "lax", //csrf
+        domain: __prod__ ? ".kodeponder.com" : undefined,
       },
       saveUninitialized: false,
-      secret: "B24C733FFC6E3B8824C1BE4B4ABCC",
+      secret: process.env.SESSION_SECRET,
       resave: false,
     })
   );
@@ -83,8 +82,8 @@ const main = async () => {
     cors: false,
   });
 
-  app.listen(9999, () => {
-    console.log("server started on localhost:9999");
+  app.listen(parseInt(process.env.PORT), () => {
+    console.log("server started on ", process.env.PORT);
   });
 };
 
