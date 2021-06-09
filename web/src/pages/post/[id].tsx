@@ -4,7 +4,7 @@ import React from "react";
 import { EditDeletePostButtons } from "../../components/EditDeletePostButtons";
 import { Layout } from "../../components/Layout";
 import { createUrqlClient } from "../../utils/createUrqlClient";
-import { useGetPostFromUrl } from "../../utils/useGetPostFromURL";
+import { useGetPostFromUrl } from "../../utils/useGetPostFromUrl";
 
 export const Post = ({}) => {
   const [{ data, error, fetching }] = useGetPostFromUrl();
