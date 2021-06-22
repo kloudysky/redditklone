@@ -29,7 +29,7 @@ const main = async () => {
   });
 
   await conn.runMigrations();
-
+  //migrate
   const app = express();
 
   const RedisStore = connectRedis(session);

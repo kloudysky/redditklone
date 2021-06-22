@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class MockPosts1623093996068 implements MigrationInterface {
   public async up(_: QueryRunner): Promise<void> {
-    //     await queryRunner.query(`
+    // await queryRunner.query(`
     //         insert into post (title, text, "creatorId", "createdAt") values ('Oloo', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
     // Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
     // Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 2, '2020-09-10T21:55:35Z');
